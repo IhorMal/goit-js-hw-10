@@ -18,8 +18,13 @@ function onVeleuInput(e) {
    let value = e.target.value.trim();
     if (value === '') {
         return;
-    } 
-    fetchCountries(value).then(res => {
+    };
+    searchСheckCountries(value)
+};
+
+function searchСheckCountries(mamesCountries) {
+    fetchCountries(mamesCountries).then(res => {
+        cliarHtml()
         
         if (res.status === 404) {
             Notiflix.Notify.warning("Oops, there is no country with that name");
@@ -28,15 +33,12 @@ function onVeleuInput(e) {
             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
             return;
         };
-
-        cliarHtml()
         if (res.length >= 2 && res.length <= 10) {
             onAbbreviatedListCountries(res);
         }else if (res.length === 1) {
             detailedInformationCountry(res);
         };
-}); 
-};
+})};
 
 function onAbbreviatedListCountries(params) {
 
